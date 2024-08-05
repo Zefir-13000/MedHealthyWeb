@@ -1,0 +1,41 @@
+﻿@model MedHealthy.Models.ViewModels.DoctorVM
+@{
+    ViewData["Title"] = "Doctor's Calendar";
+}
+
+<h1 style="text-align: center;" class="pt-3">@ViewData["Title"]</h1>
+
+<div id="calendar"></div>
+
+@section scripts {
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridDay',
+                right: "timeGridWeek,timeGridDay",
+                allDaySlot: false,
+                disableDragging: true,
+                eventClick: function (calEvent, jsEvent, view) {
+                    console.log(calEvent, jsEvent, view);
+                    window.location.href = "/Doctor/Doctor/Appointment?id=" + calEvent.event.id;
+                }
+        });
+        calendar.render();
+
+        $.getJSON("/Doctor/Doctor/GetAllAppointments", function (data) {
+            for (let i = 0; i < data["data"].length; i++) {
+                console.log(i, data["data"][i]);
+
+                calendar.addEvent({
+                    title: 'Meeting',
+                    start: data["data"][i].dateStart,
+                    end: data["data"][i].dateEnd,
+                    id: data["data"][i].id
+                });
+            }
+        });
+      });
+    </script>
+}

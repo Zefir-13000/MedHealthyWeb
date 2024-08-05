@@ -1,0 +1,52 @@
+﻿@page
+@model PersonalInfoModel
+@{
+    ViewData["Title"] = "Personal Info";
+    ViewData["ActivePage"] = ManageNavPages.PersonalInfo;
+}
+
+<h3>@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="flex-container Column">
+    <form id="profile-form" method="post" style="display: flex;" class="flex-container Column">
+        <div class="row-cols-1 col-md-4">
+        
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Gender" class="form-control" placeholder="Please enter your gender." />
+                <label asp-for="Input.Gender" class="form-label"></label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Country" class="form-control" placeholder="Please enter your country." />
+                <label asp-for="Input.Country" class="form-label"></label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.State" class="form-control" placeholder="Please enter your state." />
+                <label asp-for="Input.State" class="form-label"></label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.City" class="form-control" placeholder="Please enter your city." />
+                <label asp-for="Input.City" class="form-label"></label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Street" class="form-control" placeholder="Please enter your street." />
+                <label asp-for="Input.Street" class="form-label"></label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.BirthDay" class="form-control" placeholder="Please enter your birthday." type="date" />
+                <label asp-for="Input.BirthDay" class="form-label"></label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Allergies" class="form-control" placeholder="Please enter your allergies." />
+                <label asp-for="Input.Allergies" class="form-label"></label>
+            </div>
+            
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+        
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,19 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <div style="position:absolute; float: right; z-index: -1;">
+        <img class="col-9" src="/images/e-likari.png" style="float: right;" />
+    </div>
+    <div style="display:flex;" class="row">
+        <div class="col-lg-7" style="padding-top: 200px;">
+            <h1 style="text-align:start;">Find your Doctor!</h1>
+            <form method="get" class="pt-5" asp-action="Search">
+                <input type="text" name="text" class="home-input" placeholder="Enter doctor's name or speciality..." />
+                <button type="submit" class="home-button" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </div>
+</div>

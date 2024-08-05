@@ -1,0 +1,79 @@
+﻿@model MedHealthy.Models.ViewModels.AppointmentVM
+@{
+    ViewData["Title"] = "Appointment info";
+}
+
+<h1 style="text-align: center;" class="pt-4">@ViewData["Title"]</h1>
+
+<div class="column" style="display: flex; justify-content: center; align-items: center; text-align: center;">
+	<div class="col-md-6 pt-4" style="justify-content: center; align-items: center;">
+		<div class="pt-4 medical-card-border" style="border-size: 1px solid;">
+			<p>Appointment Start: @Model.Appointment.DateStart.ToString()</p>
+			<p>Appointment End: @Model.Appointment.DateEnd.ToString()</p>
+			<p>Patient Name: @Model.Patient.Name</p>
+			<p>Doctor Name: @Model.Doctor.Name</p>
+		</div>
+		<div class="pt-4" style="justify-content: center; align-items: center; text-align: center;">
+			<h3>Patient Medical Card</h3>
+			<div class="medical-card-border">
+            @if (Model.Patient.Patient.Gender != null)
+            {
+                    <p>Gender: @Model.Patient.Patient.Gender</p>
+            }
+            else
+            {
+                <p>Gender: Unknown</p>
+            }
+                @if (Model.Patient.Patient.BirthDay != null)
+            {
+                    <p>BirthDay: @DateOnly.FromDateTime(Model.Patient.Patient.BirthDay.Value).ToString()</p>
+            }
+            else
+            {
+                <p>BirthDay: Unknown</p>
+            }
+                @if (Model.Patient.Patient.Country != null)
+            {
+                    <p>Country: @Model.Patient.Patient.Country</p>
+            }
+            else
+            {
+                <p>Country: Unknown</p>
+            }
+                @if (Model.Patient.Patient.State != null)
+            {
+                    <p>State: @Model.Patient.Patient.State</p>
+            }
+            else
+            {
+                <p>State: Unknown</p>
+            }
+                @if (Model.Patient.Patient.City != null)
+            {
+                    <p>City: @Model.Patient.Patient.City</p>
+            }
+            else
+            {
+                <p>City: Unknown</p>
+            }
+                @if (Model.Patient.Patient.Street != null)
+            {
+                    <p>Street: @Model.Patient.Patient.Street</p>
+            }
+            else
+            {
+                <p>Street: Unknown</p>
+            }
+                @if (Model.Patient.Patient.Allergies != null)
+                {
+                    <p>Allergies: @Model.Patient.Patient.Allergies</p>
+                }
+                else
+                {
+                    <p>Allergies: Unknown</p>
+                }
+        </div>
+		</div>
+	</div>
+</div>
+

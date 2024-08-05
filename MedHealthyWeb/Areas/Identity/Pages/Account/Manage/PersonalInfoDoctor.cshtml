@@ -1,0 +1,38 @@
+﻿@page
+@model PersonalInfoDoctorModel
+@{
+    ViewData["Title"] = "Personal Info";
+    ViewData["ActivePage"] = ManageNavPages.PersonalInfoDoctor;
+}
+
+<h3>@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="flex-container Column">
+    <form id="profile-form" method="post" style="display: flex;" class="flex-container Column">
+        <div class="row-cols-1 col-md-4">
+        
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Address" class="form-control" placeholder="Please enter your address." />
+                <label asp-for="Input.Address" class="form-label"></label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Price" class="form-control" placeholder="Please enter your appointment price." />
+                <label asp-for="Input.Price" class="form-label"></label>
+            </div>
+            <div class="form-floating mb-3">
+                <select asp-for="Input.Speciality" asp-items="@Model.Input.SpecialityList" class="form-select">
+                    <option disabled selected>-Select Speciality-</option>
+                </select>
+                <label asp-for="Input.Speciality" class="form-label"></label>
+            </div>
+            
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+        
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

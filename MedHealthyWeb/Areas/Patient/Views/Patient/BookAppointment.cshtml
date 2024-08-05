@@ -1,0 +1,62 @@
+﻿@model MedHealthy.Models.ViewModels.BookAppointmentVM
+@{
+    ViewData["Title"] = "Book an Appointment";
+}
+
+<div class="row pt-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <form method="get" asp-action="Search" class="mb-4">
+                <div class="form-row align-items-center">
+                    <div class="col-sm-8 col-md-6 col-lg-4 mb-2">
+                        <label class="sr-only" for="doctorFilter">Doctor Filter</label>
+                        <div class="input-group">
+                            
+                            @if (ViewData.ContainsKey("speciality"))
+                            {
+                                <input type="text" name="text" class="form-control custom-filter-input" value="@(ViewData["speciality"])" id="doctorFilter" placeholder="Search by Doctor Name or Speciality">
+                            }
+                            else
+                            {
+                                <input type="text" name="text" class="form-control custom-filter-input" id="doctorFilter" placeholder="Search by Doctor Name or Speciality">
+                            }
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary custom-filter-btn form-control">Filter</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @foreach (var appUserDoctor in Model.Doctors)
+    {
+        <div class="col-lg-3 col-md-6">
+            <div class="p-1 col-12" stype="border: 1px solid #008cba; border-radius: 5px;">
+                <div class="card">
+                    <img src="@(appUserDoctor.ImageUrl ?? @" \images\profiles\no_picture.png")" class="card-img-top rounded center-cropped" />
+
+                    <div class="card-body">
+                        <div class="p-lg-1">
+                            <p class="card-title h5">@appUserDoctor.Name</p>
+                            @if (appUserDoctor.Doctor.Speciality != null)
+                            {
+                                <p class="card-title text-info"><b>@appUserDoctor.Doctor.Speciality.Name</b></p>
+                            }
+                            @if (appUserDoctor.Doctor.Price != null)
+                            {
+                                <p class="card-title text-info"><b>Price: </b> @appUserDoctor.Doctor.Price$</p>
+                            }
+                            else
+                            {
+                                <p class="card-title text-info"><b>Price: </b> Unknown</p>
+                            }
+                        </div>
+                        <a asp-area="Patient" asp-controller="Patient" asp-action="BookAppointmentDetails" class="btn-primary btn form-control" asp-route-doctorId="@appUserDoctor.DoctorId">Book Appointment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

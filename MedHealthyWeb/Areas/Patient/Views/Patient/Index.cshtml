@@ -1,0 +1,69 @@
+﻿@model MedHealthy.Models.ViewModels.PatientVM
+@{
+    ViewData["Title"] = "Medical Card";
+}
+
+
+<div class="row pt-5" style="margin: auto; width: 50%;">
+    <div>
+        <h1 style="text-align: center;">@ViewData["Title"]</h1>
+        <div class="medical-card-border" style="text-align: center;">
+            @if (Model.Patient.Gender != null)
+            {
+                <p>Gender: @Model.Patient.Gender</p>
+            }
+            else
+            {
+                <p>Gender: Unknown</p>
+            }
+            @if (Model.Patient.BirthDay != null)
+            {
+                <p>BirthDay: @DateOnly.FromDateTime(Model.Patient.BirthDay.Value).ToString()</p>
+            }
+            else
+            {
+                <p>BirthDay: Unknown</p>
+            }
+            @if (Model.Patient.Country != null)
+            {
+                <p>Country: @Model.Patient.Country</p>
+            }
+            else
+            {
+                <p>Country: Unknown</p>
+            }
+            @if (Model.Patient.State != null)
+            {
+                <p>State: @Model.Patient.State</p>
+            }
+            else
+            {
+                <p>State: Unknown</p>
+            }
+            @if (Model.Patient.City != null)
+            {
+                <p>City: @Model.Patient.City</p>
+            }
+            else
+            {
+                <p>City: Unknown</p>
+            }
+            @if (Model.Patient.Street != null)
+            {
+                <p>Street: @Model.Patient.Street</p>
+            }
+            else
+            {
+                <p>Street: Unknown</p>
+            }
+            @if (Model.Patient.Allergies != null)
+            {
+                <p>Allergies: @Model.Patient.Allergies</p>
+            }
+            else
+            {
+                <p>Allergies: Unknown</p>
+            }
+        </div>
+    </div>
+</div>

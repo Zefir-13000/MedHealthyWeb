@@ -1,0 +1,79 @@
+﻿@model MedHealthy.Models.ViewModels.AppointmentVM
+@{
+    ViewData["Title"] = "Book an Appointment";
+}
+
+<div class="row" style="justify-content:center;">
+	<div class="col-md-4">
+		<form method="post" asp-action="BookAppointmentDetails">
+			<h1 class="pt-5">@ViewData["Title"]</h1>
+			<input asp-for="DoctorId" hidden />
+			<input asp-for="PatientId" hidden />
+
+			<div class="border p-3 mt-4 row" style="justify-content:center;">
+				<div class="mb-3">
+					<label asp-for="DateOnlyStart">Date</label>
+					<input asp-for="DateOnlyStart" type="date" min="@DateOnly.FromDateTime(DateTime.Now).ToString("yyyy-MM-dd")" class="form-control" onchange="getComboA(this)" value="@DateOnly.FromDateTime(DateTime.Now).ToString("yyyy-MM-dd")" />
+					<span asp-validation-for="DateOnlyStart" class="text-danger"></span>
+				</div>
+				<div class="mb-3">
+					<select asp-for="TimeOnlyStart" id="timeForm" class="form-select">
+						<option disabled selected>Select Time</option>
+						@foreach (var item in Model.TimeList)
+						{
+							if (item.enable)
+							{
+								<option>@item.time.ToString()</option>
+							}
+							else
+							{
+								<option hidden>@item.time.ToString()</option>
+							}
+						}
+					</select>
+					<span asp-validation-for="TimeOnlyStart" class="text-danger"></span>
+				</div>
+				<button onclick="return ValidateInput()" type="submit" class="w-100 btn btn-lg btn-primary" style="width:150px">Book an Appointment</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+@section scripts {
+	<script>
+		function getComboA(a) {
+			let timeForm = document.getElementById("timeForm");
+			let params = new URLSearchParams(document.location.search);
+			let doctorId = params.get("doctorId");
+			$.getJSON("/Patient/Patient/GetTimeForAppointmentAction?date=" + a.value + "&doctorId=" + doctorId.toString(), function (data) {
+				for (let j = 1; j < timeForm.children.length; j++) {
+					timeForm.children[j].setAttribute("disabled", "");
+					timeForm.children[j].setAttribute("hidden", "");
+				}
+				for (let i = 0; i < data["data"].length; i++) {
+					for (let j = 1; j < timeForm.children.length; j++) {
+						if (timeForm.children[j].value == data["data"][i]) {
+							timeForm.children[j].removeAttribute("disabled");
+							timeForm.children[j].removeAttribute("hidden");
+						}
+					}
+				}
+			});
+			
+		}
+
+		function ValidateInput() {
+			let selectObj = document.getElementById("timeForm");
+			if (selectObj.value == "Select Time") {
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Please select time!',
+				});
+				return false;
+			}
+			return true;
+		}
+
+	</script>
+}
